@@ -1,6 +1,7 @@
 import pandas as pd
 import re
 
+
 def extract_and_sort_row(df, row_number, sort_method):
     # 提取指定行的内容并确保所有数据都是字符串类型
     data_row = [str(item) for item in df.iloc[row_number].tolist()]
@@ -16,8 +17,10 @@ def extract_and_sort_row(df, row_number, sort_method):
         return sorted(data_row, key=len, reverse=True)
     else:
         return data_row
-    
+
 # 定义一个函数来处理每一行的文本内容
+
+
 def remove_proci(line):
     for i in range(20, 0, -1):
         line = line.replace(f"proc{i}", "")

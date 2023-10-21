@@ -3,11 +3,13 @@ from app.helpers.data_operations import extract_and_sort_row
 from app.helpers.utilities import get_txt_download_link
 import pandas as pd
 
+
 def run():
-    st.title('Excel 数据处理器')
+    st.title('Excel 处理器')
 
     # 上传文件
-    uploaded_file = st.file_uploader("上传一个 Excel 或 CSV 文件", type=['xlsx', 'csv'])
+    uploaded_file = st.file_uploader(
+        "上传一个 Excel 或 CSV 文件", type=['xlsx', 'csv'])
 
     if uploaded_file:
         # 根据文件扩展名来决定使用哪个 pandas 读取函数

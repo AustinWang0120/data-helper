@@ -5,8 +5,9 @@ import pandas as pd
 import random
 import re
 
+
 def run():
-    st.title("Transpose 分类处理器")
+    st.title("Transpose 分类器")
 
     uploaded_file = st.file_uploader("上传一个 TXT 文件", type=['txt'])
 
@@ -23,12 +24,13 @@ def run():
             "Original Text": lines,
             "Processed Text": processed_lines
         })
-        
+
         # 显示下载CSV的链接
         st.markdown(get_csv_download_link(df), unsafe_allow_html=True)
 
         # 显示下载TXT的链接
-        st.markdown(get_txt_download_link(processed_lines), unsafe_allow_html=True)
+        st.markdown(get_txt_download_link(
+            processed_lines), unsafe_allow_html=True)
 
         # 随机选择最多50行展示
         sample_size = min(50, len(lines))
