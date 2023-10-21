@@ -7,7 +7,7 @@ def run():
     st.title("Data 处理器")
 
     # 上传文件
-    uploaded_file = st.file_uploader("上传一个CSV文件", type=["csv"])
+    uploaded_file = st.file_uploader("上传一个CSV文件-2", type=["csv"])
 
     if uploaded_file:
         data = pd.read_csv(uploaded_file)

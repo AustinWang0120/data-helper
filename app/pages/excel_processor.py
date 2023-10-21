@@ -9,7 +9,7 @@ def run():
 
     # 上传文件
     uploaded_file = st.file_uploader(
-        "上传一个 Excel 或 CSV 文件", type=['xlsx', 'csv'])
+        "上传一个CSV文件-1", type=['csv'])
 
     if uploaded_file:
         # 根据文件扩展名来决定使用哪个 pandas 读取函数
