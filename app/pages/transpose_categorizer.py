@@ -1,5 +1,6 @@
 import streamlit as st
-from app.helpers.utilities import get_csv_download_link
+from app.helpers.data_operations import remove_proci
+from app.helpers.utilities import get_csv_download_link, get_txt_download_link
 import pandas as pd
 import random
 import re
@@ -14,16 +15,8 @@ def run():
         lines = uploaded_file.readlines()
         lines = [line.decode("utf-8").strip() for line in lines]
 
-        # 定义一个函数来处理每一行的文本内容
-        def process_line(line):
-            for i in range(20, 0, -1):
-                line = line.replace(f"proc{i}", "")
-            line = re.sub(r"_+", "_", line)
-            line = line.strip("_")
-            return line
-
         # 处理所有的行
-        processed_lines = [process_line(line) for line in lines]
+        processed_lines = [remove_proci(line) for line in lines]
 
         # 创建一个包含原始文本和处理后文本的 DataFrame
         df = pd.DataFrame({
@@ -31,7 +24,11 @@ def run():
             "Processed Text": processed_lines
         })
         
+        # 显示下载CSV的链接
         st.markdown(get_csv_download_link(df), unsafe_allow_html=True)
+
+        # 显示下载TXT的链接
+        st.markdown(get_txt_download_link(processed_lines), unsafe_allow_html=True)
 
         # 随机选择最多50行展示
         sample_size = min(50, len(lines))
