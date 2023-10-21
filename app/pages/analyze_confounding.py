@@ -75,12 +75,17 @@ def run():
             # 根据用户选择的置信水平提取相应的置信区间并显示
             _, ci = perform_logistic_regression(
                 df, [common_var] + confounder_vars, confidence_level)
+            # 根据用户选择的置信水平提取相应的置信区间并显示
             lower, upper = ci.loc[common_var]
             st.write(
-                f"{confidence_level*100:.1f}%置信区间为: ({lower:.4f}, {upper:.4f})")
-            if lower > 1 or upper < 1:
+                f"对于变量'{common_var}'，{confidence_level*100:.1f}%的置信区间为: ({lower:.4f}, {upper:.4f})")
+
+            if 0 < lower < 1 and 0 < upper < 1:
                 st.write(
-                    f"在{confidence_level*100:.1f}%的置信水平下，雌激素用户与非雌激素用户间患子宫内膜癌的几率是显著不同的。")
+                    f"在{confidence_level*100:.1f}%的置信水平下，考虑到混杂因子{'、'.join(confounder_vars)}，{common_var}的效应与目标事件（例如患病的几率）没有显著关系。")
+            elif lower > 1 or upper < 1:
+                st.write(
+                    f"在{confidence_level*100:.1f}%的置信水平下，考虑到混杂因子{'、'.join(confounder_vars)}，{common_var}的效应与目标事件（例如患病的几率）有显著关系。")
             else:
                 st.write(
-                    f"在{confidence_level*100:.1f}%的置信水平下，雌激素用户与非雌激素用户间患子宫内膜癌的几率没有显著差异。")
+                    f"在{confidence_level*100:.1f}%的置信水平下，考虑到混杂因子{'、'.join(confounder_vars)}，{common_var}的效应与目标事件（例如患病的几率）的关系不明确。")
