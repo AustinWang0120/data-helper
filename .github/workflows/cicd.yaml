@@ -31,7 +31,6 @@ jobs:
           push: true
           tags: gcr.io/data-helper-402621/data-helper:latest
 
-      # test
       - name: Setup gcloud CLI
         uses: google-github-actions/setup-gcloud@v1
         with:
