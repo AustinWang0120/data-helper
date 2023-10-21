@@ -10,5 +10,8 @@ RUN pip install -r requirements.txt
 # 复制所有文件到容器中
 COPY . .
 
+# 设置环境变量
+ENV PORT 8501
+
 # 运行Streamlit应用
-CMD ["streamlit", "run", "app.py"]
+CMD streamlit run app.py --server.port $PORT
