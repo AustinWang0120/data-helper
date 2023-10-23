@@ -1,15 +1,17 @@
 import streamlit as st
 from app.helpers.utilities import get_csv_download_link, get_txt_download_link
 import pandas as pd
-import random
 import re
-
-# 定义一个函数来处理每一行的文本内容
 
 
 def remove_proci(line):
     for i in range(20, 0, -1):
         line = line.replace(f"proc{i}", "")
+
+    if re.search(r"proc", line):
+        line = re.sub(r"proc", "", line)
+        line = re.sub(r"(\d+)$", "", line)
+
     line = re.sub(r"_+", "_", line)
     line = line.strip("_")
     return line
@@ -41,15 +43,5 @@ def run():
         st.markdown(get_txt_download_link(
             processed_lines), unsafe_allow_html=True)
 
-        # 随机选择最多50行展示
-        sample_size = min(50, len(lines))
-        sampled_indices = random.sample(range(len(lines)), sample_size)
-
-        for idx in sampled_indices:
-            original = lines[idx]
-            processed = processed_lines[idx]
-            col1, col2 = st.columns(2)
-            with col1:
-                st.text(original)
-            with col2:
-                st.text(processed)
+        # 显示处理后的数据
+        st.write(df)
