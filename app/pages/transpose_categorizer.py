@@ -1,9 +1,18 @@
 import streamlit as st
-from app.helpers.data_operations import remove_proci
 from app.helpers.utilities import get_csv_download_link, get_txt_download_link
 import pandas as pd
 import random
 import re
+
+# 定义一个函数来处理每一行的文本内容
+
+
+def remove_proci(line):
+    for i in range(20, 0, -1):
+        line = line.replace(f"proc{i}", "")
+    line = re.sub(r"_+", "_", line)
+    line = line.strip("_")
+    return line
 
 
 def run():
